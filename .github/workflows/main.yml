@@ -8,6 +8,11 @@ on:
         description: Environment to deploy the packages
         required: true
         type: string
+      rerun-live:
+        description: Environment to deploy the packages
+        required: false
+        type: boolean
+        default: false
     outputs:
       new_tag:
         value: ${{ jobs.tag.outputs.new_tag}}
@@ -35,8 +40,10 @@ jobs:
           branch_name=${GITHUB_REF#refs/heads/}
           if [[ "$branch_name" == Test* || "$branch_name" == staging || "$branch_name" == "release/*" ]]; then
               default_bump='prerelease'
-          elif [[ "$branch_name" == "live" ]]; then
+          elif [[ "$branch_name" == "live" && rerun-live != false]]; then
               default_bump='minor'
+          elif [[ "$branch_name" == "live" && rerun-live == true]]; then
+              default_bump='patch'
           else
               default_bump='patch'
           fi
