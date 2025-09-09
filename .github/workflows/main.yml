@@ -44,12 +44,13 @@ jobs:
       - name: Get default bump
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
+          RERUN_LIVE="${{ github.event.inputs.rerun-live }}"
           if [[ "$branch_name" == Test* || "$branch_name" == staging || "$branch_name" == "release/*" ]]; then
               default_bump='prerelease'
-          elif [[ "$branch_name" == "live" && rerun-live != false]]; then
-              default_bump='minor'
-          elif [[ "$branch_name" == "live" && rerun-live == true]]; then
+          elif [[ "$branch_name" == "live" && "$RERUN_LIVE" = "true" ]]; then
               default_bump='patch'
+          elif [[ "$branch_name" == "live" ]]; then
+              default_bump='minor'
           else
               default_bump='patch'
           fi
