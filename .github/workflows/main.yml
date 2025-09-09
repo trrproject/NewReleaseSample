@@ -13,7 +13,10 @@ on:
         value: ${{ jobs.tag.outputs.new_tag}}
       new_version:
         value: ${{ jobs.tag.outputs.new_version }}
-      
+
+permissions:
+  contents: write  # This is required for actions/checkout and add tags to repo
+
 jobs:
   tag:
     name: Update and push tag
