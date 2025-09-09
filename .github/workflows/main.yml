@@ -71,7 +71,7 @@ jobs:
         id: tag
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          default_bump: ${{ env.default_bump }}
+          default_bump: 'major'
           tag_suffix: ${{ github.ref_name == 'live' && 'live' || '' }}
           fetch_all_tags: true
           is_dry_run: ${{ env.is_dry_run }}
