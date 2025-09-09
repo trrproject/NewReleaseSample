@@ -3,10 +3,6 @@ name: CI/CD
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: Environment to deploy the packages
-        required: true
-        type: string
       rerun-live:
         description: Environment to deploy the packages
         required: false
